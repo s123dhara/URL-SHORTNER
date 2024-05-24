@@ -34,8 +34,9 @@ app.get("/:shortId", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
-
+git rm -r --cached .
+git add -A
+git commit -am 'fix'
 app.listen(3000, () => {
   console.log("server is running at http://localhost:3000");
 });
