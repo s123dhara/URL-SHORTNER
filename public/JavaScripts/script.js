@@ -15,7 +15,7 @@ document.getElementById('submit-button').addEventListener('click', function() {
             const shortenedLink = document.getElementById('shortened-link');
             const shortenedUrl = "http://localhost:3000/" + data.shortId
             shortenedLink.href = shortenedUrl;
-            shortenedLink.textContent = shortenedUrl;
+            shortenedLink.textContent = "short.ly/" + data.shortId;
 
             // Show the shortened URL section
             document.getElementById('shortened-url').classList.remove('hidden');

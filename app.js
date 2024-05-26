@@ -17,6 +17,10 @@ const url = require("./models/url");
 //routes
 app.use("/url", urlRouter);
 
+app.get('/', (req, res)=>{
+  res.redirect('/url')
+})
+
 app.get("/:shortId", async (req, res) => {
   try {
     // Fetch the original URL based on the shortId from the request parameter
@@ -34,9 +38,9 @@ app.get("/:shortId", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-git rm -r --cached .
-git add -A
-git commit -am 'fix'
+// git rm -r --cached .
+// git add -A
+// git commit -am 'fix'
 app.listen(3000, () => {
   console.log("server is running at http://localhost:3000");
 });
