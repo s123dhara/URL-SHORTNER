@@ -1,6 +1,7 @@
 const express = require('express')
 const URL = require('../models/url'); // Ensure this path is correct
 const ShortUniqueId = require('short-unique-id')
+const QRcode = require('qrcode')
 
 async function generateAnewShortURL(req, res) {
     const body = req.body;

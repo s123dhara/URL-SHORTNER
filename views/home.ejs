@@ -16,6 +16,7 @@
         opacity: 1;
       }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   </head>
   <body class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded-lg shadow-lg text-center">
@@ -27,6 +28,7 @@
         class="border border-gray-300 p-2 w-full mb-4"
         placeholder="https://example.com"
       />
+      <div id="error-message" class="error-message hidden text-red-500 p-8">Please enter a valid URL.</div>
       <button
         id="submit-button"
         class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
@@ -51,12 +53,19 @@
         >
           Copy
         </button>
+        <button
+          id="qr-button"
+          class="bg-gray-200 text-gray-700 px-2 py-1 rounded hover:bg-gray-300"
+        >
+          QR Code
+        </button>
       </div>
 
       <div id="copy-success" class="copy-success text-green-500 mt-2">
         Copied to clipboard!
-      </div>
-    </div>
-    <script src="./JavaScripts/script.js"></script>
+      </div> 
+        <div id="qr-code" class="hidden mt-4"></div>
+        <button id="download-button" class="hidden bg-blue-500 px-4 py-2 rounded-lg hover:bg-blue-700 text-white">Download QR Code</button>        
+        <script src="./JavaScripts/script.js"></script>
   </body>
 </html>

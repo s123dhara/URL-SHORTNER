@@ -1,6 +1,16 @@
 document.getElementById('submit-button').addEventListener('click', function() {
     const urlInput = document.getElementById('url-input').value;
-    if (urlInput) {
+    const errormessage = document.getElementById('error-message');
+
+    if (!urlInput) {
+        errormessage.classList.remove('hidden');
+        errormessage.textContent = "Please enter a URL.";
+        return;
+    }
+
+    if (isValidUrl(urlInput)) {
+        // errormessage.classList.add('hidden');
+
         fetch('/url/create', {
             method: 'POST',
             headers: {
@@ -10,21 +20,53 @@ document.getElementById('submit-button').addEventListener('click', function() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("data : ",data)
             // Display the shortened URL to the user
+            const shortenedUrl = "https://short.ly/" + data.shortId;
             const shortenedLink = document.getElementById('shortened-link');
-            const shortenedUrl = "http://localhost:3000/" + data.shortId
-            shortenedLink.href = shortenedUrl;
-            shortenedLink.textContent = "short.ly/" + data.shortId;
+            shortenedLink.href = "https://127.0.0.1:3000/" + data.shortId; // Fixed the protocol
+            shortenedLink.textContent = shortenedUrl;
 
             // Show the shortened URL section
             document.getElementById('shortened-url').classList.remove('hidden');
 
-            // Your existing code for copy functionality, etc.
+            // Add event listener for the QR code button
+            const qrButton = document.getElementById('qr-button');
+            qrButton.addEventListener('click', function generateQRCode() {
+                const downloadButton = document.getElementById('download-button');
+                const qrCodeDiv = document.getElementById('qr-code');
+                qrCodeDiv.innerHTML = '';
+                new QRCode(qrCodeDiv, {
+                    text: shortenedUrl,
+                    width: 128,
+                    height: 128
+                });
+
+                qrCodeDiv.classList.remove('hidden');
+                downloadButton.classList.remove('hidden');
+
+                // Remove event listener after QR code is generated
+                qrButton.removeEventListener('click', generateQRCode);
+
+                downloadButton.addEventListener('click', function() {
+                    const qrCodeImg = qrCodeDiv.querySelector('img');
+                    if (qrCodeImg) {
+                        const imgURL = qrCodeImg.src;
+                        const link = document.createElement('a');
+                        link.href = imgURL;
+                        link.download = 'qr-code.png';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                });
+            });
         })
         .catch(error => {
             console.error('Error:', error);
         });
+    } else {
+        errormessage.classList.remove('hidden');
+        errormessage.textContent = "Please enter a valid URL.";
     }
 });
 
@@ -40,3 +82,8 @@ document.getElementById('copy-button').addEventListener('click', function() {
         console.error('Could not copy text: ', err);
     });
 });
+
+function isValidUrl(string) {
+    const regex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(\/[a-zA-Z0-9-._~:\/?#@!$&'()*+,;=%]*)?$/;
+    return regex.test(string);
+}
