@@ -41,6 +41,6 @@ app.get("/:shortId", async (req, res) => {
 // git rm -r --cached .
 // git add -A
 // git commit -am 'fix'
-app.listen(3000, () => {
-  console.log("server is running at http://localhost:3000");
+app.listen(4000, () => {
+  console.log("server is running at http://localhost:4000");
 });

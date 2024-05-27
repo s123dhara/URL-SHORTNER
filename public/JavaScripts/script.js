@@ -21,9 +21,10 @@ document.getElementById('submit-button').addEventListener('click', function() {
         .then(response => response.json())
         .then(data => {
             // Display the shortened URL to the user
-            const shortenedUrl = "https://short.ly/" + data.shortId;
+            const shortenedUrl = "https://127.0.0.1:4000/" + data.shortId;
             const shortenedLink = document.getElementById('shortened-link');
-            shortenedLink.href = "https://127.0.0.1:3000/" + data.shortId; // Fixed the protocol
+            // shortenedLink.href = "https://localhost:3000/" + data.shortId; // Fixed the protocol
+            shortenedLink.href = "https://localhost:4000/" + data.shortId
             shortenedLink.textContent = shortenedUrl;
 
             // Show the shortened URL section
@@ -37,8 +38,8 @@ document.getElementById('submit-button').addEventListener('click', function() {
                 qrCodeDiv.innerHTML = '';
                 new QRCode(qrCodeDiv, {
                     text: shortenedUrl,
-                    width: 128,
-                    height: 128
+                    width: 200,
+                    height: 200
                 });
 
                 qrCodeDiv.classList.remove('hidden');
