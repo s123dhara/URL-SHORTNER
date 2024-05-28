@@ -21,10 +21,10 @@ document.getElementById('submit-button').addEventListener('click', function() {
         .then(response => response.json())
         .then(data => {
             // Display the shortened URL to the user
-            const shortenedUrl = "https://127.0.0.1:4000/" + data.shortId;
+            const shortenedUrl = "short.ly" + data.shortId;
             const shortenedLink = document.getElementById('shortened-link');
             // shortenedLink.href = "https://localhost:3000/" + data.shortId; // Fixed the protocol
-            shortenedLink.href = "https://localhost:4000/" + data.shortId
+            shortenedLink.href = "http://localhost:4000/" + data.shortId
             shortenedLink.textContent = shortenedUrl;
 
             // Show the shortened URL section
