@@ -24,7 +24,7 @@ document.getElementById('submit-button').addEventListener('click', function() {
             const shortenedUrl = "short.ly" + data.shortId;
             const shortenedLink = document.getElementById('shortened-link');
             // shortenedLink.href = "https://localhost:3000/" + data.shortId; // Fixed the protocol
-            shortenedLink.href = "http://localhost:4000/" + data.shortId
+            shortenedLink.href = "https://jubilant-engine-x5w7pwxgjq6r399g7-4000.app.github.dev/" + data.shortId
             shortenedLink.textContent = shortenedUrl;
 
             // Show the shortened URL section
